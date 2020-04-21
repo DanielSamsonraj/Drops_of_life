@@ -1,0 +1,38 @@
+.my-container1 {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.center {
+    margin: auto;
+    width: 100%;
+    padding: 10px;
+}
+
+.my-nav-bar {
+    background-color: rgb(177, 29, 29);
+}
+
+.my-container {
+    border: 1px solid black;
+    background-color: rgb(249, 252, 218);
+    max-width: 500px;
+    max-height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    margin-top: 30px;
+    box-shadow: 10px 10px 5px #aaaaaa;
+    /* box-shadow: black; */
+}
+
+.my-form {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px
+}

@@ -1,0 +1,179 @@
+{%load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,
+            initial-scale=1,shrink-to-fit=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Sign-up</title>
+    <style>
+        .container1 {
+            margin: auto;
+        }
+        
+        .myForm {
+            /* padding: 40px; */
+            margin-top: 20px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .my-nav-bar {
+            background: rgb(160, 5, 5);
+        }
+        
+        body {
+            background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
+        }
+        
+        .design-form {
+            background-color: white;
+            margin-top: 40px;
+            max-width: 500px;
+            /* border: 1px solid white; */
+            background: -webkit-linear-gradient(left, #e6e5c9, rgb(243, 243, 222), #dbf1c8);
+            border-radius: 25px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .note {
+            text-align: center;
+            height: 80px;
+            background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
+            color: #fff;
+            font-weight: bold;
+            line-height: 80px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+        }
+        
+        .designForm {
+            padding: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
+        <div class="container">
+            <a class="navbar-brand" href="/home">Drops of Life</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mr-3">
+                    <li class="nav-item my-item">
+                        {%if login%}
+                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if signup%}
+                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if viewProfile%}
+                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <!-- {%if logout%} -->
+                        <a class="nav-link" href="/profile">{{logout}}</a>
+                        <!-- {%endif%} -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container">
+        <div class="container1 design-form">
+            <div class="note">
+                <p>Sign Up to Save a Life.</p>
+            </div>
+
+            <form role="form" action="/signup" method="POST" class="designForm">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" class="form-control" style="border-radius: 15px;">
+                </div>
+
+                <div class="form-group md-form">
+                    <input type="text" name="name" placeholder="Name" class="form-control" style="border-radius: 15px;">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col md-6">
+                        <input type="password" name="pswd" placeholder="Password" class="form-control" style="border-radius: 15px;">
+                    </div>
+                    <div class="form-group col md-6">
+                        <input type="password" name="CPswd" placeholder="ConfirmPassword" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col md-6">
+                        <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group col md-6">
+                        <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col md-6">
+                        <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group col md-6">
+                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius: 15px;">
+                    </div>
+                </div>
+
+                <div class="form-group md-form">
+                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" style="border-radius: 15px;">
+                </div>
+                <div class="form-group md-form">
+                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" style="border-radius: 15px;">
+                </div>
+                <div class="form-group md-form">
+                    <label for="terms"><input type="checkbox"> Are you
+                            willing to donate blood to
+                            anyone at anytime</label>
+                </div>
+                <div class="form-group md-form">
+                    <button class="btn btn-lg btn-primary btn-block" style="background: -webkit-linear-gradient(left,
+                            #4c89fa,#9f76e0);" type="submit">Sign-up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="page-footer font-small black">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

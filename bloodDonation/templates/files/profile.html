@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Blood Donation</title>
+    <style>
+        .my-nav-bar {
+            background-color: rgb(175, 4, 4);
+        }
+        
+        .my-container {
+            border: 1px solid black;
+            margin-top: 40px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .my-col {
+            text-align: center;
+            margin: auto;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <a href="MiniProject\bloodDonation\templates\signup.html" class="button-primary">Signup</a> -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
+        <div class="container">
+            <a class="navbar-brand" href="/home">Drops of Life</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mr-3">
+                    <li class="nav-item my-item">
+                        {%if login%}
+                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if signup%}
+                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if viewProfile%}
+                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <!-- {%if logout%} -->
+                        <a class="nav-link" href="/profile">{{logout}}</a>
+                        <!-- {%endif%} -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+    <!-- container -->
+
+    <div class="container">
+        <div class="card">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">
+                    <strong>PERSONAL INFO </strong> <a href="#"><i class="fa
+                                fa-pencil fa-fw" aria-hidden="true"
+                                style="color: black"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <p><strong>Name: </strong>{{firstname}}+{{lastname}}</p>
+                    <p><strong>Date Of Birth: </strong>{{dob}}</p>
+                    <p><strong>Blood Group: </strong>{{bldgrp}}</p>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">
+                    <strong>CONTACT INFO </strong> <a href="#"><i class="fa
+                                fa-pencil fa-fw" aria-hidden="true"
+                                style="color: black"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <p><strong>Contact no: </strong>{{contactno}}</p>
+                    <p><strong>Email: </strong>{{email}}</p>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">
+                    <strong>ADDRESS </strong><a href="#"><i class="fa
+                                fa-pencil fa-fw" aria-hidden="true"
+                                style="color: black"></i></a>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <p><strong>Country: </strong>{{country}}</p>
+                    <p><strong>Sate: </strong>{{state}}</p>
+                    <p><strong>District: </strong>{{dist}}</p>
+                    <p><strong>City: </strong>{{city}}</p>
+                    <p><strong>Area: </strong>{{area}}</p>
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- footter -->
+    <footer class="page-footer font-small black">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+{%load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+            shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Blood Donation</title>
+    <style>
+        .my-nav-bar {
+            background-color: rgb(175, 4, 4);
+        }
+        
+        .style-my-button {
+            size: px;
+            background-color: white;
+        }
+        
+        .modify {
+            max-width: 500px;
+        }
+        
+        .man {
+            text-align: center;
+        }
+        
+        .design-row {
+            border-radius: 25px;
+            box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.2), 0 4px 4px 0 rgba(0, 0, 0, 0.19);
+            padding: 10px;
+            margin-top: 20px;
+        }
+        
+        .firstContainer {
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <a href="MiniProject\bloodDonation\templates\signup.html" class="button-primary">Signup</a> -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
+        <div class="container">
+            <a class="navbar-brand" href="/home">Drops of Life</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto mr-3">
+                    <li class="nav-item my-item">
+                        {%if login%}
+                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if signup%}
+                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item my-item">
+                        {%if viewProfile%}
+                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
+                    </li>
+                    <li class="nav-item my-item">
+                        <!-- {%if logout%} -->
+                        <a class="nav-link" href="/profile">{{logout}}</a>
+                        <!-- {%endif%} -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </nav>
+
+    <div class="container-fluid">
+        <div class="container-fluid shadow-sm firstContainer">
+            <form action="" class="my-form">
+                <div class="form-row" style="margin-right:
+                        10%;margin-left:10%;">
+                    <div class="form-group modify col-sm md-6">
+                        <input type="text" name="bg" placeholder="BloodGroup" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group modify col-sm md-6">
+                        <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group modify col-sm md-6">
+                        <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group modify col-sm md-6">
+                        <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group modify col-sm md-6">
+                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius:
+                                15px;">
+                    </div>
+                    <div class="form-group modify col-sm md-6">
+                        <input type="submit" class="btn btn-outline-info" value="submit">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="container mt-3" style="margin:auto;text-align: center;">
+            <h4>The available donars are </h4>
+        </div>
+        {%for i in len%}
+        <div class="container design-row">
+            <div class="row">
+                {%for j in details%}
+                <div class="col-sm man">{{j}}</div>
+                {%endfor%}
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+
+    <footer class="page-footer font-small black">
+        <div class="footer-copyright text-center py-3">© 2020 Copyright:
+            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
