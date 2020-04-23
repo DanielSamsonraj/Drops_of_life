@@ -23,7 +23,7 @@
         }
         
         .modify {
-            max-width: 500px;
+            max-width: auto;
         }
         
         .man {
@@ -90,7 +90,8 @@
 
     <div class="container-fluid">
         <div class="container-fluid shadow-sm firstContainer">
-            <form action="" class="my-form">
+            <form action="" method="post" class="my-form">
+                {%csrf_token%}
                 <div class="form-row" style="margin-right:
                         10%;margin-left:10%;">
                     <div class="form-group modify col-sm md-6">
@@ -122,17 +123,19 @@
         </div>
 
         <div class="container mt-3" style="margin:auto;text-align: center;">
+            {%if check%}
             <h4>The available donars are </h4>
+            {%endif%}
         </div>
-        {%for i in len%}
+        {%for i in len%} {%for list in details%}
         <div class="container design-row">
             <div class="row">
-                {%for j in details%}
+                {%for j in list%}
                 <div class="col-sm man">{{j}}</div>
                 {%endfor%}
             </div>
         </div>
-        {%endfor%}
+        {%endfor%} {%endfor%}
     </div>
 
     <footer class="page-footer font-small black">

@@ -3,7 +3,7 @@ from django import template
 
 from .models import donarDetails
 
-loggedin = True
+loggedin = False
 
 
 def getVal():
@@ -73,8 +73,24 @@ def profile(request):
 
 def search(request):
     val = getVal()
-    details = ["Daniel Smson Raj", "O+", "Malkapuram",
-               "Visakhapatnam", "Andhra Pradesh", "India", "8309282168"]
-    val['details'] = details
-    val["len"] = range(1, 5)
+    val['check'] = False
+    if request.method == 'POST':
+        bloodGroup = request.POST['bg']
+        area = request.POST['area']
+        city = request.POST['city']
+        state = request.POST['state']
+        country = request.POST['country']
+        try:
+            val['details'].append(
+                ["Daniel Samson ", bloodGroup, area, city, state, country, '8309282168'])
+        except:
+            val['details'] = ["Daniel Samson", bloodGroup, area,
+                              city, state, country, '8309282168'], ["Samson", bloodGroup, area,
+                                                                    city, state, country, '8309282168']
+        val['len'] = range(len(val['details']))
+        val['check'] = True
+    else:
+        if len(val['details']) == 0:
+            val['details'] = None
+            val['len'] = [0]
     return render(request, 'files/search.html', val)
