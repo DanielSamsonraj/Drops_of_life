@@ -122,24 +122,43 @@
             </form>
         </div>
 
+        {%if check%}
+
+        <div class="container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        {%for title in table_headers%}
+                        <th scope="col">{{title}}</th>
+                        {%endfor%}
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for d in details%} {%for val in d%}
+                    <tr>
+                        <td>{{val.name}}</td>
+                        <td>{{val.blood_group}}</td>
+                        <td>{{val.contact_no}}</td>
+                        <td>{{val.area}}</td>
+                    </tr>
+                    {%endfor%} {%endfor%}
+                </tbody>
+            </table>
+        </div>
+
+
+        {%else%}
         <div class="container mt-3" style="margin:auto;text-align: center;">
-            {%if check%}
-            <h4>The available donars are </h4>
-            {%endif%}
+            <h4>Sorry no donors available </h4>
         </div>
-        {%for d in details%} {%for val in d%}
-        <div class="container design-row">
-            <div class="row">
-                <div class="col-sm man">{{val.name}}</div>
-                <div class="col-sm man">{{val.email}}</div>
-                <div class="col-sm man">{{val.contact_no}}</div>
-                <div class="col-sm man">{{val.area}}</div>
-                <div class="col-sm man">{{val.city}}</div>
-                <div class="col-sm man">{{val.state}}</div>
-                <div class="col-sm man">{{val.country}}</div>
-            </div>
-        </div>
-        {%endfor%} {%endfor%}
+        {%endif%}
+
+
+
+
+
+
+
     </div>
 
     <footer class="page-footer font-small black">
