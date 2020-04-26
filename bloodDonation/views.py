@@ -45,7 +45,6 @@ def signup(request):
         state = request.POST['state']
         bloodGroup = request.POST['bg']
         country = request.POST['country']
-
         if password == password1:
             obj = donarDetails(
                 name=Name,
@@ -73,24 +72,17 @@ def profile(request):
 
 def search(request):
     val = getVal()
-    val['check'] = False
     if request.method == 'POST':
         bloodGroup = request.POST['bg']
         area = request.POST['area']
         city = request.POST['city']
         state = request.POST['state']
         country = request.POST['country']
-        try:
-            val['details'].append(
-                ["Daniel Samson ", bloodGroup, area, city, state, country, '8309282168'])
-        except:
-            val['details'] = ["Daniel Samson", bloodGroup, area,
-                              city, state, country, '8309282168'], ["Samson", bloodGroup, area,
-                                                                    city, state, country, '8309282168']
+        obj = donarDetails.objects.all()
+        data = donarDetails.objects.all()
+        val['details'] = [data]
         val['len'] = range(len(val['details']))
-        val['check'] = True
     else:
-        if len(val['details']) == 0:
-            val['details'] = None
-            val['len'] = [0]
+        val['details'] = None
+        val['len'] = []
     return render(request, 'files/search.html', val)

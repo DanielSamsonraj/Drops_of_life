@@ -127,12 +127,16 @@
             <h4>The available donars are </h4>
             {%endif%}
         </div>
-        {%for i in len%} {%for list in details%}
+        {%for d in details%} {%for val in d%}
         <div class="container design-row">
             <div class="row">
-                {%for j in list%}
-                <div class="col-sm man">{{j}}</div>
-                {%endfor%}
+                <div class="col-sm man">{{val.name}}</div>
+                <div class="col-sm man">{{val.email}}</div>
+                <div class="col-sm man">{{val.contact_no}}</div>
+                <div class="col-sm man">{{val.area}}</div>
+                <div class="col-sm man">{{val.city}}</div>
+                <div class="col-sm man">{{val.state}}</div>
+                <div class="col-sm man">{{val.country}}</div>
             </div>
         </div>
         {%endfor%} {%endfor%}
