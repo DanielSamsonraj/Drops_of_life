@@ -72,6 +72,7 @@ def profile(request):
 
 def search(request):
     val = getVal()
+    val['check'] = True
     if request.method == 'POST':
         bloodGroup = request.POST['bg']
         area = request.POST['area']
@@ -81,8 +82,10 @@ def search(request):
         obj = donarDetails.objects.all()
         data = donarDetails.objects.all()
         val['details'] = [data]
-        val['len'] = range(len(val['details']))
+        val['len'] = [i for i in range(len(data))]
+        val['table_headers'] = ["Name", "Blood Group", "Contact No", "Address"]
     else:
         val['details'] = None
         val['len'] = []
+    print(val)
     return render(request, 'files/search.html', val)
