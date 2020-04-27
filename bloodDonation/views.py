@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django import template
-
+from django.contrib import messages
 from .models import donarDetails
 
 loggedin = False
@@ -34,6 +34,7 @@ def login(request):
 
 
 def signup(request):
+    val = getVal()
     if request.method == 'POST':
         Name = request.POST['name']
         email = request.POST['email']
@@ -45,25 +46,41 @@ def signup(request):
         state = request.POST['state']
         bloodGroup = request.POST['bg']
         country = request.POST['country']
-        status = "NO"
+        status = "Yes"
+        if password == "":
+            messages.info(request, 'password cannot be empty')
+            return redirect('signup')
         if password == password1:
-            obj = donarDetails(
-                name=Name,
-                email=email,
-                password=password,
-                availiability_status=status,
-                blood_group=bloodGroup,
-                contact_no=contactNo,
-                area=area,
-                city=city,
-                state=state,
-                country=country
-            )
-            obj.save()
-            print("object created successfully ", obj.name)
+            if donarDetails.objects.filter(email=email).exists() == False:
+                if len(password) <= 8:
+                    messages.info(
+                        request, 'Password should be minimum of 8 charachters')
+                    return redirect('signup')
+                if len(bloodGroup) >= 3:
+                    message.info(
+                        request, 'Blood Group field accepts only 3 charachters')
+                    return redirect('signup')
+                obj = donarDetails(
+                    name=Name,
+                    email=email,
+                    password=password,
+                    availiability_status=status,
+                    blood_group=bloodGroup,
+                    contact_no=contactNo,
+                    area=area,
+                    city=city,
+                    state=state,
+                    country=country
+                )
+                obj.save()
+                print("object created successfully ", obj.name)
+            else:
+                messages.info(request, 'Email already taken')
+                return redirect('signup')
         else:
-            print("password dosent match")
-    val = getVal()
+            messages.info(
+                request, 'Password and Confirm password should match')
+            return redirect('signup')
     return render(request, 'files/signup.html', val)
 
 
@@ -95,12 +112,12 @@ def search(request):
             if details[4] == "NO":
                 details[4] = None
             available_donors.append(
-                [details[1], details[4], details[5], details[6], details[7]])
+                [details[1], details[5], details[6], details[7]])
         val['details'] = available_donors
 
         # print(val['details'])
 
-        val['table_headers'] = ["Name", "Availiability Status",
+        val['table_headers'] = ["Name",
                                 "Blood Group", "Contact No", "Address"]
         val['initialCheck'] = True
     else:
