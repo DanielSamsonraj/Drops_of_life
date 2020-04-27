@@ -40,6 +40,25 @@
         .firstContainer {
             padding: 20px;
         }
+        
+        .my-table {
+            overflow: hidden;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            max-width: 100%;
+        }
+        
+        .thead-color {
+            background-color: rgb(162, 156, 179);
+        }
+        
+        .my-form {
+            justify-content: center;
+        }
+        
+        td,
+        thead {
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -90,43 +109,52 @@
 
     <div class="container-fluid">
         <div class="container-fluid shadow-sm firstContainer">
-            <form action="" method="post" class="my-form">
-                {%csrf_token%}
-                <div class="form-row" style="margin-right:
-                        10%;margin-left:10%;">
-                    <div class="form-group modify col-sm md-6">
-                        <input type="text" name="bg" placeholder="BloodGroup" class="form-control" style="border-radius:
-                                15px;">
+            <div class="container">
+                <form action="" method="post" class="my-form">
+                    {%csrf_token%}
+                    <div class="form-row">
+                        <div class="form-group modify col-sm">
+                            <input type="text" name="bg" placeholder="BloodGroup" class="form-control" style="border-radius:
+                                    15px;">
+                        </div>
+                        <div class="form-group modify col-sm">
+                            <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
+                                    15px;">
+                        </div>
+                        <div class="form-group modify col-sm">
+                            <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
+                                    15px;">
+                        </div>
+                        <div class="form-group modify col-sm">
+                            <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
+                                    15px;">
+                        </div>
+                        <div class="form-group modify col-sm md-6">
+                            <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius:
+                                    15px;">
+                        </div>
+                        <div class="form-group modify col-sm md-6">
+                            <div class="container">
+                                <input type="submit" class="btn
+                                        btn-outline-info" value="Search">
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group modify col-sm md-6">
-                        <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
-                                15px;">
-                    </div>
-                    <div class="form-group modify col-sm md-6">
-                        <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
-                                15px;">
-                    </div>
-                    <div class="form-group modify col-sm md-6">
-                        <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
-                                15px;">
-                    </div>
-                    <div class="form-group modify col-sm md-6">
-                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius:
-                                15px;">
-                    </div>
-                    <div class="form-group modify col-sm md-6">
-                        <input type="submit" class="btn btn-outline-info" value="submit">
-                    </div>
-                </div>
 
-            </form>
+                </form>
+            </div>
         </div>
 
-        {%if check%}
 
-        <div class="container">
-            <table class="table table-striped">
-                <thead>
+        {%if initialCheck%} {%if check%}
+
+        <div class="container" style="text-align: center;margin-top: 30px;">
+            <h4>The available donors are </h4>
+        </div>
+
+        <div class="container" style="margin-top: 30px;overflow:auto;">
+            <table class="table table-striped my-table">
+                <thead class="thead-color">
                     <tr>
                         {%for title in table_headers%}
                         <th scope="col">{{title}}</th>
@@ -134,14 +162,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {%for d in details%} {%for val in d%}
+                    {%for d in details%}
                     <tr>
-                        <td>{{val.name}}</td>
-                        <td>{{val.blood_group}}</td>
-                        <td>{{val.contact_no}}</td>
-                        <td>{{val.area}}</td>
+                        {%for d1 in d%} {%if d1%}
+                        <td>{{d1}}</td>
+                        {%else%}
+                        <td style="color: red;">NO</td>
+                        {%endif%} {%endfor%}
                     </tr>
-                    {%endfor%} {%endfor%}
+                    {%endfor%}
                 </tbody>
             </table>
         </div>
@@ -149,11 +178,9 @@
 
         {%else%}
         <div class="container mt-3" style="margin:auto;text-align: center;">
-            <h4>Sorry no donors available </h4>
+            <h4 style="color:red"> Sorry no donors available </h4>
         </div>
-        {%endif%}
-
-
+        {%endif%} {%endif%}
 
 
 
@@ -162,8 +189,10 @@
     </div>
 
     <footer class="page-footer font-small black">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+        <div class="footer-copyright text-center py-3">
+            <small> © 2020 Copyright:
+                    <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+                </small>
         </div>
     </footer>
 
