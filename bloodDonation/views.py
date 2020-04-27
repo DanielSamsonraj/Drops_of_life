@@ -45,11 +45,13 @@ def signup(request):
         state = request.POST['state']
         bloodGroup = request.POST['bg']
         country = request.POST['country']
+        status = "NO"
         if password == password1:
             obj = donarDetails(
                 name=Name,
                 email=email,
                 password=password,
+                availiability_status=status,
                 blood_group=bloodGroup,
                 contact_no=contactNo,
                 area=area,
@@ -73,19 +75,35 @@ def profile(request):
 def search(request):
     val = getVal()
     val['check'] = True
+    val['initialCheck'] = False
     if request.method == 'POST':
         bloodGroup = request.POST['bg']
         area = request.POST['area']
         city = request.POST['city']
         state = request.POST['state']
         country = request.POST['country']
-        obj = donarDetails.objects.all()
+
+        # fecthing data
+
         data = donarDetails.objects.all()
-        val['details'] = [data]
-        val['len'] = [i for i in range(len(data))]
-        val['table_headers'] = ["Name", "Blood Group", "Contact No", "Address"]
+        status_check = donarDetails.objects.filter().values()
+        available_donors = []
+        temp_list = []
+        for values in status_check:
+            temp_list.append(list(values.values()))
+        for details in temp_list:
+            if details[4] == "NO":
+                details[4] = None
+            available_donors.append(
+                [details[1], details[4], details[5], details[6], details[7]])
+        val['details'] = available_donors
+
+        # print(val['details'])
+
+        val['table_headers'] = ["Name", "Availiability Status",
+                                "Blood Group", "Contact No", "Address"]
+        val['initialCheck'] = True
     else:
         val['details'] = None
         val['len'] = []
-    print(val)
     return render(request, 'files/search.html', val)
