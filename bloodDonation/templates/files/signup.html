@@ -107,53 +107,59 @@
             <div class="note">
                 <p>Sign Up</p>
             </div>
-
+            {%if messages%}
+            <div class="container" style="text-align: center;">
+                {%for message in messages %}
+                <p style="color: rgb(212, 6, 6);">{{message}}</p>
+                {%endfor%}
+            </div>
+            {%endif%}
             <form role="form" action="/signup" method="POST" class="designForm">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" class="form-control" style="border-radius: 15px;">
+                    <input type="email" name="email" placeholder="Email" class="form-control" style="border-radius: 15px;" required>
                 </div>
 
                 <div class="form-group md-form">
-                    <input type="text" name="name" placeholder="Name" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="name" placeholder="Name" class="form-control" style="border-radius: 15px;" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-sm md-6">
-                        <input type="password" name="pswd" placeholder="Password" class="form-control" style="border-radius: 15px;">
+                        <input type="password" name="pswd" placeholder="Password" class="form-control" style="border-radius: 15px;" required>
                     </div>
                     <div class="form-group col-sm md-6">
                         <input type="password" name="CPswd" placeholder="ConfirmPassword" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-sm md-6">
                         <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                     <div class="form-group col-sm md-6">
                         <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-sm md-6">
                         <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                     <div class="form-group col-sm md-6">
-                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius: 15px;">
+                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius: 15px;" required>
                     </div>
                 </div>
 
                 <div class="form-group md-form">
-                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" style="border-radius: 15px;" required>
                 </div>
                 <div class="form-group md-form">
-                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" style="border-radius: 15px;" required>
                 </div>
                 <div class="form-group md-form">
                     <label for="terms"><input type="checkbox"> Are you
