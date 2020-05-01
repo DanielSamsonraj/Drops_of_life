@@ -94,9 +94,18 @@
             <div class="note">
                 <p>Login</p>
             </div>
-            <form action="" class="form-design my-form">
+            {%if messages%}
+            <div class="container" style="text-align: center;">
+                {%for message in messages %}
+                <p style="color: rgb(212, 6, 6);">{{message}}</p>
+                {%endfor%}
+            </div>
+            {%endif%}
+            <form role="form" action="/login" method="post" role="form" class="form-design
+                    my-form">
+                {% csrf_token %}
                 <div class="form-group" style="border-radius: 50%;">
-                    <input type="email" name="email" placeholder="Email" class="form-control" required style="border-radius:
+                    <input type="username" name="username" placeholder="Username" class="form-control" required style="border-radius:
                             25px;">
                 </div>
                 <div class="form-group">

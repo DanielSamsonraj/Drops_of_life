@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django import template
 from django.contrib import messages
-from .models import donarDetails
+from .models import DonarDetails
 
 loggedin = False
 
@@ -27,7 +27,7 @@ def home(request):
     return render(request, 'files/home.html', val)
 
 
-def login(request):
+def user_login(request):
     global loggedin
     val = getVal()
     return render(request, 'files/login.html', val)
@@ -51,26 +51,26 @@ def signup(request):
             messages.info(request, 'password cannot be empty')
             return redirect('signup')
         if password == password1:
-            if donarDetails.objects.filter(email=email).exists() == False:
-                if len(password) <= 8:
+            if DonarDetails.objects.filter(email=email).exists() == False:
+                if len(password) < 8:
                     messages.info(
                         request, 'Password should be minimum of 8 charachters')
                     return redirect('signup')
-                if len(bloodGroup) >= 3:
+                if len(bloodGroup) > 3:
                     message.info(
                         request, 'Blood Group field accepts only 3 charachters')
                     return redirect('signup')
-                obj = donarDetails(
+                obj = DonarDetails(
                     name=Name,
                     email=email,
                     password=password,
-                    availiability_status=status,
                     blood_group=bloodGroup,
                     contact_no=contactNo,
                     area=area,
                     city=city,
                     state=state,
-                    country=country
+                    country=country,
+                    username=Name
                 )
                 obj.save()
                 print("object created successfully ", obj.name)
@@ -102,8 +102,8 @@ def search(request):
 
         # fecthing data
 
-        data = donarDetails.objects.all()
-        status_check = donarDetails.objects.filter().values()
+        data = DonarDetails.objects.all()
+        status_check = DonarDetails.objects.filter().values()
         available_donors = []
         temp_list = []
         for values in status_check:

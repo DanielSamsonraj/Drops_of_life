@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import donarDetails
+from .models import DonarDetails
 
-admin.site.register(donarDetails)
+admin.site.register(DonarDetails)
