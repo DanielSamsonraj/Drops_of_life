@@ -1,3 +1,4 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
 
@@ -13,20 +14,33 @@
     <title>Blood Donation</title>
     <style>
         .my-nav-bar {
-            background-color: rgb(175, 4, 4);
+            background-color: rgb(160, 5, 5);
         }
         
         .my-container {
-            border: 1px solid black;
-            margin-top: 40px;
+            max-width: 500px;
+            max-height: 500px;
+            margin-top: 30px;
             margin-left: auto;
             margin-right: auto;
+            background: -webkit-linear-gradient(left, #eee2ca, #f4f5d2);
+            border-radius: 25px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        body {
+            background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
         }
         
-        .my-col {
+        .note {
             text-align: center;
-            margin: auto;
-            border: 1px solid black;
+            height: 80px;
+            background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
+            color: #fff;
+            line-height: 80px;
+            font-size: x-large;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
+            <a href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true" style="color: black"></i></a>
         }
     </style>
 </head>
@@ -76,65 +90,55 @@
 
     </nav>
     <!-- container -->
-
     <div class="container">
-        <div class="card">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">
-                    <strong>PERSONAL INFO </strong> <a href="#"><i class="fa
-                                fa-pencil fa-fw" aria-hidden="true"
-                                style="color: black"></i></a>
-                </div>
+        <div class="my-container">
+            <div class="note">
+                    <strong>PERSONAL INFO </strong>
             </div>
-            <div class="card-body">
-                <p class="card-text">
+            <center>
+		        <br>
                     <p><strong>Name: </strong>{{firstname}}+{{lastname}}</p>
                     <p><strong>Date Of Birth: </strong>{{dob}}</p>
                     <p><strong>Blood Group: </strong>{{bldgrp}}</p>
-                </p>
-            </div>
+	            <br>
+	        </center>
         </div>
     </div>
+    
     <div class="container">
-        <div class="card">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">
-                    <strong>CONTACT INFO </strong> <a href="#"><i class="fa
-                                fa-pencil fa-fw" aria-hidden="true"
-                                style="color: black"></i></a>
-                </div>
-            </div>
-            <div class="card-body">
-                <p class="card-text">
+        <div class="my-container">
+            <div class="note">
+		        <strong>CONTACT INFO</strong>
+	        </div>
+	        <center>
+                    <br>
                     <p><strong>Contact no: </strong>{{contactno}}</p>
                     <p><strong>Email: </strong>{{email}}</p>
-                </p>
-            </div>
+                    <br>
+            </center>
         </div>
     </div>
+    
     <div class="container">
-        <div class="card">
-            <div class="card text-white bg-info mb-3">
-                <div class="card-header">
-                    <strong>ADDRESS </strong><a href="#"><i class="fa
-                                fa-pencil fa-fw" aria-hidden="true"
-                                style="color: black"></i></a>
-                </div>
-            </div>
-            <div class="card-body">
-                <p class="card-text">
-                    <p><strong>Country: </strong>{{country}}</p>
-                    <p><strong>Sate: </strong>{{state}}</p>
-                    <p><strong>District: </strong>{{dist}}</p>
-                    <p><strong>City: </strong>{{city}}</p>
-                    <p><strong>Area: </strong>{{area}}</p>
-                </p>
-            </div>
+        <div class="my-container">
+            <div class="note">
+		    <strong>ADDRESS</strong>
+	    </div>
+	        <center>
+                    <br>
+                    <p>{{area}},</p>
+                    <p>{{city}},</p>
+                    <p>{{state}},</p>
+                    <p>{{country}}</p>
+                    <br>
+            </center>
         </div>
     </div>
 
-
-
+    <br><br>
+    <center>
+    	<button class="btn btn-lg btn-primary btn-block" style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0); max-width: 250px;margin: auto;" onclick="/signup">Edit Profile</button>
+    </center>
 
 
 
@@ -145,5 +149,4 @@
         </div>
     </footer>
 </body>
-
 </html>
