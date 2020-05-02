@@ -10,7 +10,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Sign-up</title>
     <style>
         .container1 {
@@ -48,8 +48,8 @@
             height: 80px;
             background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
             color: #fff;
-            font-weight: bold;
             line-height: 80px;
+            font-size: x-large;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
         }
@@ -105,55 +105,61 @@
     <div class="container">
         <div class="container1 design-form">
             <div class="note">
-                <p>Sign Up to Save a Life.</p>
+                <p>Sign Up</p>
             </div>
-
+            {%if messages%}
+            <div class="container" style="text-align: center;">
+                {%for message in messages %}
+                <p style="color: rgb(212, 6, 6);">{{message}}</p>
+                {%endfor%}
+            </div>
+            {%endif%}
             <form role="form" action="/signup" method="POST" class="designForm">
                 {% csrf_token %}
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" class="form-control" style="border-radius: 15px;">
+                    <input type="email" name="email" placeholder="Email" class="form-control" style="border-radius: 15px;" required>
                 </div>
 
                 <div class="form-group md-form">
-                    <input type="text" name="name" placeholder="Name" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="name" placeholder="Name" class="form-control" style="border-radius: 15px;" required>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col md-6">
-                        <input type="password" name="pswd" placeholder="Password" class="form-control" style="border-radius: 15px;">
+                    <div class="form-group col-sm md-6">
+                        <input type="password" name="pswd" placeholder="Password" class="form-control" style="border-radius: 15px;" required>
                     </div>
-                    <div class="form-group col md-6">
+                    <div class="form-group col-sm md-6">
                         <input type="password" name="CPswd" placeholder="ConfirmPassword" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col md-6">
+                    <div class="form-group col-sm md-6">
                         <input type="text" name="area" placeholder="Area" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
-                    <div class="form-group col md-6">
+                    <div class="form-group col-sm md-6">
                         <input type="text" name="city" placeholder="City" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col md-6">
+                    <div class="form-group col-sm md-6">
                         <input type="text" name="state" placeholder="State" class="form-control" style="border-radius:
-                                15px;">
+                                15px;" required>
                     </div>
-                    <div class="form-group col md-6">
-                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius: 15px;">
+                    <div class="form-group col-sm md-6">
+                        <input type="text" name="country" placeholder="Country" class="form-control" style="border-radius: 15px;" required>
                     </div>
                 </div>
 
                 <div class="form-group md-form">
-                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" style="border-radius: 15px;" required>
                 </div>
                 <div class="form-group md-form">
-                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" style="border-radius: 15px;">
+                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" style="border-radius: 15px;" required>
                 </div>
                 <div class="form-group md-form">
                     <label for="terms"><input type="checkbox"> Are you
