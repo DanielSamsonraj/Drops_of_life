@@ -124,3 +124,8 @@ def search(request):
         val['details'] = None
         val['len'] = []
     return render(request, 'files/search.html', val)
+
+
+def changepassword(request):
+    val = getVal()
+    return render(request, 'files/changepassword.html', val)
