@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django import template
 from django.contrib import messages
 from .models import DonarDetails
+from django.contrib.auth.models import User
 
 loggedin = False
 
@@ -46,42 +47,40 @@ def signup(request):
         state = request.POST['state']
         bloodGroup = request.POST['bg']
         country = request.POST['country']
-        status = "Yes"
-        if password == "":
-            messages.info(request, 'password cannot be empty')
+        if len(password) < 8:
+            messages.info(
+                request, "Password should be minimum of 8 charachters")
+            return redirect('sigup')
+        if password == email:
+            messages.info(request, "Password should not be same as email")
             return redirect('signup')
         if password == password1:
-            if DonarDetails.objects.filter(email=email).exists() == False:
-                if len(password) < 8:
-                    messages.info(
-                        request, 'Password should be minimum of 8 charachters')
-                    return redirect('signup')
-                if len(bloodGroup) > 3:
-                    message.info(
-                        request, 'Blood Group field accepts only 3 charachters')
-                    return redirect('signup')
-                obj = DonarDetails(
+            try:
+                User.objects.get(username=email)
+                messages.info(
+                    request, "There's already an account with this email")
+                return redirect('signup')
+            except User.DoesNotExist:
+                user = User.objects.create_user(
+                    username=email, password=password)
+                extended_user = DonarDetails(
                     name=Name,
-                    email=email,
-                    password=password,
                     blood_group=bloodGroup,
-                    contact_no=contactNo,
                     area=area,
                     city=city,
                     state=state,
                     country=country,
-                    username=Name
+                    user=user
                 )
-                obj.save()
-                print("object created successfully ", obj.name)
-            else:
-                messages.info(request, 'Email already taken')
-                return redirect('signup')
+                extended_user.save()
+            return
         else:
             messages.info(
-                request, 'Password and Confirm password should match')
+                request, "Password and Confirm Password should match")
             return redirect('signup')
-    return render(request, 'files/signup.html', val)
+
+    else:
+        return render(request, 'files/signup.html', val)
 
 
 def profile(request):
