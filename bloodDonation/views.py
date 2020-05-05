@@ -3,6 +3,8 @@ from django import template
 from django.contrib import messages
 from .models import DonarDetails
 from django.contrib.auth.models import User
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 loggedin = False
 
@@ -31,7 +33,27 @@ def home(request):
 def user_login(request):
     global loggedin
     val = getVal()
-    return render(request, 'files/login.html', val)
+    if request.method == 'POST':
+        username = request.POST['email']
+        password = request.POST['password']
+
+        user = auth.authenticate(username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+            loggedin = True
+            return redirect('home')
+        else:
+            messages.info(request, 'Invalid credentials')
+            return redirect('login')
+    else:
+        return render(request, 'files/login.html', val)
+
+
+def logout(request):
+    auth.logout(request)
+    global loggedin
+    loggedin = False
+    return redirect('home')
 
 
 def signup(request):
@@ -60,12 +82,14 @@ def signup(request):
                 messages.info(
                     request, "There's already an account with this email")
                 return redirect('signup')
-            except User.DoesNotExist:
+            except:
                 user = User.objects.create_user(
                     username=email, password=password)
+                print(user)
                 extended_user = DonarDetails(
                     name=Name,
                     blood_group=bloodGroup,
+                    contact_no=contactNo,
                     area=area,
                     city=city,
                     state=state,
@@ -73,7 +97,10 @@ def signup(request):
                     user=user
                 )
                 extended_user.save()
-            return
+            auth.login(request, user)
+            global loggedin
+            loggedin = True
+            return redirect('home')
         else:
             messages.info(
                 request, "Password and Confirm Password should match")
@@ -83,8 +110,11 @@ def signup(request):
         return render(request, 'files/signup.html', val)
 
 
+@login_required(login_url='/login/')
 def profile(request):
     val = getVal()
+    data = DonarDetails.objects.filter(user=request.user)
+    val['data'] = data
     return render(request, 'files/profile.html', val)
 
 
