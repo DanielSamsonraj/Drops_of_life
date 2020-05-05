@@ -49,11 +49,12 @@ def user_login(request):
         return render(request, 'files/login.html', val)
 
 
+@login_required(login_url='/login/')
 def logout(request):
     auth.logout(request)
     global loggedin
     loggedin = False
-    return redirect('home')
+    return render(request, 'files/home.html', getVal())
 
 
 def signup(request):
@@ -155,6 +156,7 @@ def search(request):
     return render(request, 'files/search.html', val)
 
 
+@login_required(login_url='/login/')
 def changepassword(request):
     val = getVal()
     return render(request, 'files/changepassword.html', val)
