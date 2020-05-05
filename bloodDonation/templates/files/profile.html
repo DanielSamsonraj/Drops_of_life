@@ -27,6 +27,7 @@
             border-radius: 25px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
+        
         body {
             background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
         }
@@ -40,7 +41,6 @@
             font-size: x-large;
             border-top-left-radius: 25px;
             border-top-right-radius: 25px;
-            <a href="#"><i class="fa fa-pencil fa-fw" aria-hidden="true" style="color: black"></i></a>
         }
     </style>
 </head>
@@ -81,7 +81,7 @@
                     </li>
                     <li class="nav-item my-item">
                         <!-- {%if logout%} -->
-                        <a class="nav-link" href="/profile">{{logout}}</a>
+                        <a class="nav-link" href="/logout">{{logout}}</a>
                         <!-- {%endif%} -->
                     </li>
                 </ul>
@@ -93,53 +93,57 @@
     <div class="container">
         <div class="my-container">
             <div class="note">
-                    <strong>PERSONAL INFO </strong>
+                <strong>PERSONAL INFO </strong>
             </div>
             <center>
-		        <br>
-                    <p><strong>Name: </strong>{{firstname}}+{{lastname}}</p>
-                    <p><strong>Date Of Birth: </strong>{{dob}}</p>
-                    <p><strong>Blood Group: </strong>{{bldgrp}}</p>
-	            <br>
-	        </center>
-        </div>
-    </div>
-    
-    <div class="container">
-        <div class="my-container">
-            <div class="note">
-		        <strong>CONTACT INFO</strong>
-	        </div>
-	        <center>
-                    <br>
-                    <p><strong>Contact no: </strong>{{contactno}}</p>
-                    <p><strong>Email: </strong>{{email}}</p>
-                    <br>
+                <br> {%for d in data%}
+                <p><strong>Name: </strong>{{d.name}}</p>
+                <p><strong>Blood Group: </strong>{{d.blood_group}}</p>
+                {%endfor%}
+                <br>
             </center>
         </div>
     </div>
-    
+
     <div class="container">
         <div class="my-container">
             <div class="note">
-		    <strong>ADDRESS</strong>
-	    </div>
-	        <center>
-                    <br>
-                    <p>{{area}},</p>
-                    <p>{{city}},</p>
-                    <p>{{state}},</p>
-                    <p>{{country}}</p>
-                    <br>
+                <strong>CONTACT INFO</strong>
+            </div>
+            <center>
+                <br> {% for d in data %}
+                <p><strong>Contact no: </strong>{{d.contact_no}}</p>
+                {% endfor %}
+                <br>
+            </center>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="my-container">
+            <div class="note">
+                <strong>ADDRESS</strong>
+            </div>
+            <center>
+                <br> {%for d in data%}
+                <p>{{d.area}},</p>
+                <p>{{d.city}},</p>
+                <p>{{d.state}},</p>
+                <p>{{d.country}}</p>
+                {% endfor %}
+                <br>
             </center>
         </div>
     </div>
 
     <br><br>
     <center>
-    	<button class="btn btn-lg btn-primary btn-block" style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0); max-width: 250px;margin: auto;" onclick="/signup">Edit Profile</button>
+        <button class="btn btn-lg btn-primary btn-block" style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
+                max-width: 250px;margin: auto;" onclick="/signup">Edit Profile</button>
     </center>
-
+    <center>
+        <a href="/changepassword">Change Password</a>
+    </center>
 
 
     <!-- footter -->
@@ -149,4 +153,5 @@
         </div>
     </footer>
 </body>
+
 </html>
