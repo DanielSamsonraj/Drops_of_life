@@ -80,9 +80,8 @@
                         <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
                     </li>
                     <li class="nav-item my-item">
-                        <!-- {%if logout%} -->
-                        <a class="nav-link" href="/logout">{{logout}}</a>
-                        <!-- {%endif%} -->
+                        {%if logout%}
+                        <a class="nav-link" href="/logout">{{logout}}</a> {%endif%}
                     </li>
                 </ul>
             </div>
@@ -137,14 +136,22 @@
     </div>
 
     <br><br>
-    <center>
-        <button class="btn btn-lg btn-primary btn-block" style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
-                max-width: 250px;margin: auto;" onclick="/signup">Edit Profile</button>
-    </center>
-    <center>
-        <a href="/changepassword">Change Password</a>
-    </center>
-
+    <div class="container">
+        <center>
+            <a href="/signup"><button class="btn btn-lg btn-primary
+                        btn-block"
+                        style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
+                        max-width: 250px;margin: auto;">Edit Profile</button></a>
+        </center>
+    </div>
+    <div class="container mt-3">
+        <center>
+            <a href="/changepassword"><button class="btn btn-lg btn-primary
+                        btn-block"
+                        style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
+                        max-width: 250px;margin: auto;">Change Password</button></a>
+        </center>
+    </div>
 
     <!-- footter -->
     <footer class="page-footer font-small black">
