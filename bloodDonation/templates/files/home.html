@@ -26,10 +26,6 @@
             padding: 10px;
         }
         
-        .my-nav-bar {
-            background-color: rgb(153, 21, 21);
-        }
-        
         .container1 {
             background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
             margin-left: auto;
@@ -41,93 +37,221 @@
             border-radius: 50%;
         }
         
-        body {
+        .new-container {
+            padding-bottom: 50px;
+        }
+        
+        .jumbotron {
+            padding: 0 0;
+            margin-bottom: 50;
+            background-color: white;
             background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
         }
+        
+        .my-nav-bar {
+            box-shadow: 0px 10px 30px rgb(216, 216, 216, 0.45);
+            border-bottom: 1px solid rgb(196, 192, 192);
+            background-color: rgb(161, 4, 4);
+        }
+        
+        .nav-link {
+            /* border-bottom: 4px solid white; */
+            margin-right: 24px;
+            transition: 0.35 ease;
+            padding: 5px;
+        }
+        
+        .nav-link :hover {
+            color: black;
+            border-bottom: 4px solid #eb4027;
+        }
+        
+        .nav-active a {
+            color: black !important;
+            font-weight: 600;
+            border-bottom: 4px solid #eb4027;
+        }
+        
+        .my-image1 {
+            border-radius: 5%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        
+        .items {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .my-row {
+            display: flex;
+            align-content: space-between;
+        }
+        
+        .my-image2 {
+            max-width: 300px;
+            max-height: 300px;
+        }
+        
+        .typewriter {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     </style>
-    <!-- style  -->
     <title>Blood Donation</title>
 </head>
 
 <body>
-
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <a href="MiniProject\bloodDonation\templates\signup.html" class="button-primary">Signup</a> -->
-    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
-        <div class="container">
-            <a class="navbar-brand" href="/home">Drops of Life</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto mr-3">
-                    <li class="nav-item my-item">
-                        {%if login%}
-                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if signup%}
-                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <a class="nav-link" href="/search">Search</a>
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if viewProfile%}
-                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <!-- {%if logout%} -->
-                        <a class="nav-link" href="/profile">{{logout}}</a>
-                        <!-- {%endif%} -->
-                    </li>
-                </ul>
+    <div class="jumbotron">
+        <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
+            <div class="container">
+                <a class="navbar-brand" href="/home">Drops of Life</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle
+                        navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto mr-3">
+                        <li class="nav-item">
+                            {%if login%}
+                            <a class="nav-link" href="/login">{{login}}</a>{%endif%}
+                        </li>
+                        <li class="nav-item">
+                            {%if signup%}
+                            <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/search">Search</a>
+                        </li>
+                        <li class="nav-item">
+                            {%if viewProfile%}
+                            <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
+                        </li>
+                        <li class="nav-item">
+                            {%if logout%}
+                            <a class="nav-link" href="/logout">{{logout}}</a> {%endif%}
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-    </nav>
+        </nav>
 
-    <div class="container mt-3">
-        <div class="row">
-            <div class="col-sm" style="max-width: 300px;">
-                <img src="{% static 'images/donate.jpg' %}" alt="" class="img-fluid" style="mix-blend-mode:multiply;">
-            </div>
-            <div class="col-sm" style="text-align: center;">
-                <!-- <img src="https://cdn1.vectorstock.com/i/1000x1000/37/95/blood-donation-cartoon-vector-1563795.jpg " alt=" " class="img-fluid " style="mix-blend-mode:multiply; "> -->
-                <div class="cotainer" style="margin-top: 50px;">
-                    It's never too late for donating blood, Make you donation now <br>
-                    <button class="btn btn-outline-dark" style="border-radius:
-                            20%;">Register</button>
+        <div class="container my-jumbotron">
+            <div class="row align-items-center" style="padding-top: 10px;">
+                <div class="col-sm align-self-center">
+                    <div class="row">
+                        <div class="col align-self-center" style="text-align:
+                                center;">
+                            <h1 style="font-family:serif">Lets join our hands to save lives
+                            </h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm align-self-center" style="text-align:
+                                center;">
+                            <p style="font-family:candara body copy">Make your first donation now </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm align-self-center" style="text-align:
+                                center;">
+                            <a href="/signup"><button class="bt btn-dark">Register</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm align-self-center">
+                    <div class="container" style="margin: 20px 0px;">
+                        <img src="{% static 'images/holdinghands.jpg'%}" alt="hand" class="img-fluid
+                                my-image1">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="container mt-3">
-        <h4 style="text-align: center; color: rgb(160, 5, 5);">What to Know about Blood Donation</h4>
-        <p style="font-size:15px;">Donating blood is a safe process and people should not hesitate to give or receive blood. Right now, eligible and healthy donors are strongly urged to make an appointment to give soon. 1 donation can potentially save up to 3 lives.Blood is the
-            most precious gift that anyone can give to another person — the gift of life. A decision to donate your blood can save a life, or even several if your blood is separated into its components — red cells, platelets and plasma — which can be
-            used individually for patients with specific conditions.</p>
-        <div class="center">
-            <h2 style="text-align: center; color: rgb(160, 5, 5);">About Us</h2>
-            <p style="font-size:20px">Our aim is to enable the individuals who want to donate blood and help needy.The person who need blood can communicate with the donor through the data which is availabe in the website.The main objective for developing the website is to educate
-                the community on the benifits of Blood Donation, develope a Web-Based Blood Bank System to manage records of donors and recipients, and encourage voluntary blood donation, easily accessing any information about donors.</p>
 
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col align-self-center">
+                <div class="container" style="margin: 20px 20px;">
+                    <img src="{% static 'images/donate.jpg' %}" alt="Donate" class="img-fluid my-image2">
+                </div>
+            </div>
+            <div class="col align-self-center">
+                <div class="container">
+                    <h4 style="text-align: center; color: rgb(160, 5, 5);">What to Know about Blood Donation</h4>
+                    <p style="font-size:15px;">Donating blood is a safe process and people should not hesitate to give or receive blood. Right now, eligible and healthy donors are strongly urged to make an appointment to give soon. 1 donation can potentially save up to 3 lives.Blood
+                        is the most precious gift that anyone can give to another person — the gift of life. A decision to donate your blood can save a life, or even several if your blood is separated into its components — red cells, platelets and plasma
+                        — which can be used individually for patients with specific conditions.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- fotter -->
-    <footer class="page-footer font-small black">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+    <div class="container" style="margin-top: 100px;">
+        <div class="row align-items-center">
+            <div class="col-sm align-self-center">
+                <div class="container">
+                    <h2 style="text-align: center; color: rgb(160, 5, 5);">About Us
+                    </h2>
+                    <p style="font-size:15px;text-align: center;">Our aim is to enable the individuals who want to donate blood and help needy.The person who need blood can communicate with the donor through the data which is availabe in the website.The main objective for developing the website is
+                        to educate the community on the benifits of Blood Donation, develope a Web-Based Blood Bank System to manage records of donors and recipients, and encourage voluntary blood donation, easily accessing any information about donors.
+                    </p>
+                </div>
+            </div>
+            <div class="col-sm align-self-center">
+                <div class="container" style="margin: 20px 20px;text-align:
+                        center;">
+                    <img src="{% static 'images/background-hand.jpg' %}" alt="Donate" class="img-fluid my-image1">
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="container" style="margin-top:60px ;">
+        <div class="row align-items-center" style="margin-top: 30px;">
+            <div class="col-sm">
+                <img src="{% static 'images/search-small.jpg' %}" alt="Donate" class="img-fluid">
+            </div>
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col" style="text-align: center;">
+                        <h2 style="text-align: center; color: rgb(160, 5,
+                                5);">
+                            Search for donors </h2>
+                        <p>Searching for donors is very easy all you need to do is to just fill in your details and then you will find the nearest donor who is matching blood group.This application is built with least possible flitering options for specifing
+                            locations of the donors.</p>
+                        <p>Make your first search now <a href="/search"><button
+                                        class="btn btn-outline-dark">Search</button></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="page-footer font-small black">
+        <small>
+                <div class="footer-copyright text-center py-3">©
+                    2020
+                    Copyright:
+                    <a href="https://BloodDonations.com/">
+                        BloodDonations.com</a>
+                </div>
+            </small>
     </footer>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </body>
 
 </html>
