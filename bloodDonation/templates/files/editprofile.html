@@ -1,17 +1,4 @@
-{%load static %}
-<!doctype html>
-<html lang="en">
-
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,
-            initial-scale=1,shrink-to-fit=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Blood Donation</title>
+{% extends "files/header.html" %} {% block title %}Drops of Life {% endblock %} {%load static %} {% block content %} {%load static %}
     <style>
         .container1 {
             margin: auto;
@@ -58,90 +45,41 @@
             padding: 30px;
         }
     </style>
-</head>
-
-<body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
-        <div class="container">
-            <a class="navbar-brand" href="/home">Drops of Life</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto mr-3">
-                    <li class="nav-item my-item">
-                        {%if login%}
-                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if signup%}
-                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <a class="nav-link" href="/search">Search</a>
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if viewProfile%}
-                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <!-- {%if logout%} -->
-                        <a class="nav-link" href="/profile">{{logout}}</a>
-                        <!-- {%endif%} -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
 
     <div class="container">
         <div class="container1 design-form">
             <div class="note">
                 <p>Edit Profile</p>
             </div>
-            <form role="form" action="/signup" method="POST" class="designForm">
+            <form role="form" action="" method="POST" class="designForm">
                 {% csrf_token %}
-            
+
                 <div class="form-group md-form">
-                    <strong>Name : </strong>
-                    {% for d in data%}
-                    <input type="text" name="name" placeholder="Name" class="form-control" value="{{d.name}}" style="border-radius: 15px;" required>
-                    {% endfor %}
+                    <strong>Name : </strong> {% for d in data%}
+                    <input type="text" name="name" placeholder="Name" class="form-control" value="{{d.name}}" style="border-radius: 15px;" required> {% endfor %}
                 </div>
 
                 <strong>Blood Group : </strong>
                 <div class="form-group md-form">
                     {% for d in data%}
-                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" value="{{d.blood_group}}" style="border-radius: 15px;" required>
-                    {% endfor %}
+                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" value="{{d.blood_group}}" style="border-radius: 15px;" required> {% endfor %}
                 </div>
 
                 <strong>Contact : </strong>
                 <div class="form-group md-form">
                     {% for d in data%}
-                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" value="{{d.contact_no}}" style="border-radius: 15px;" required>
-                    {% endfor %}
+                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" value="{{d.contact_no}}" style="border-radius: 15px;" required> {% endfor %}
                 </div>
                 <strong>Address : </strong>
                 <div class="form-row">
                     <div class="form-group col-sm md-6">
                         {% for d in data%}
-                        <input type="text" name="area" placeholder="Area" class="form-control" value="{{d.area}}" style="border-radius:15px;" required>
-                        {% endfor %}
+                        <input type="text" name="area" placeholder="Area" class="form-control" value="{{d.area}}" style="border-radius:15px;" required> {% endfor %}
                     </div>
                     <div class="form-group col-sm md-6">
                         {% for d in data%}
                         <input type="text" name="city" placeholder="City" class="form-control" value="{{d.city}}" style="border-radius:
-                                15px;" required>
-                        {% endfor %}
+                                15px;" required> {% endfor %}
                     </div>
                 </div>
 
@@ -149,13 +87,12 @@
                     <div class="form-group col-sm md-6">
                         {% for d in data%}
                         <input type="text" name="state" placeholder="State" class="form-control" value="{{d.state}}" style="border-radius:
-                                15px;" required>
-                        {% endfor %}
+                                15px;" required> {% endfor %}
                     </div>
                     <div class="form-group col-sm md-6">
                         {% for d in data%}
-                        <input type="text" name="country" placeholder="Country" class="form-control" value="{{d.country}}" style="border-radius: 15px;" required>
-                        {% endfor %}
+                        <input type="text" name="country" placeholder="Country" class="form-control" value="{{d.country}}" style="border-radius:
+                                15px;" required> {% endfor %}
                     </div>
                 </div>
 
@@ -172,7 +109,4 @@
         </div>
     </footer>
 
-
-</body>
-
-</html>
+{% endblock content %}
