@@ -29,6 +29,37 @@ def home(request):
     val = getVal()
     return render(request, 'files/home.html', val)
 
+def editprofile(request):
+    val=getVal()
+    user=DonarDetails.objects.filter(user=request.user)
+    if request.method == 'POST':
+
+        Name = request.POST['name']
+        contactNo = request.POST['CNo']
+        area = request.POST['area']
+        city = request.POST['city']
+        state = request.POST['state']
+        bloodGroup = request.POST['bg']
+        country = request.POST['country']
+        
+        extended_user = DonarDetails(
+                    name=Name.lower(),
+                    blood_group=bloodGroup.upper(),
+                    contact_no=contactNo,
+                    area=area.lower(),
+                    city=city.lower(),
+                    state=state.lower(),
+                    country=country.lower(),
+                    user=user
+                )
+        extended_user.save()
+        return redirect('profile')
+
+    else:
+        val['data'] = user
+        return render(request, 'files/editprofile.html', val)
+    
+
 
 def user_login(request):
     global loggedin
@@ -237,3 +268,5 @@ def search(request):
 def changepassword(request):
     val = getVal()
     return render(request, 'files/changepassword.html', val)
+
+
