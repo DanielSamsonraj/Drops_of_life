@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'MiniProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'BloodDonations',
+        'NAME': 'MyDatabase',
         'USER': 'postgres',
-        'PASSWORD': 'cse1',
+        'PASSWORD': 'BhaVya',
         'HOST': 'localhost'
     }
 }
