@@ -267,8 +267,30 @@ def search(request):
 
 @login_required(login_url='/login/')
 def changepassword(request):
-    val = getVal()
-    return render(request, 'files/changepassword.html', val)
+    if request.method=="POST":
+        cur_pwd=request.POST['currentpassword']
+        new_pwd=request.POST['newpassword']
+        conf_pwd=request.POST['conformpassword']
+        #print(request.user)
+        u=User.objects.get(username=request.user)
+        if(u.check_password(cur_pwd)):
+            if new_pwd == conf_pwd:
+                if len(new_pwd)<8:
+                    messages.info(request,"Password should be minimum of 8 characters")
+                else:
+                    u.set_password(new_pwd)
+                    u.save()
+                    global loggedin
+                    loggedin=False
+                    return render(request,'files/login.html',getVal())
+            else:
+                messages.info(request,"new password and conform password should match")
+                return redirect('changepassword')
+        else:
+            messages.info(request,"Please Enter Valid Password")
+            return redirect('changepassword')     
+    else:
+        return render(request, 'files/changepassword.html', getVal())
 
 
 def generate_OTP():
@@ -281,7 +303,7 @@ def enter_OTP(request):
     if request.method == 'POST':
         entered_otp = request.POST['otp']
         if entered_otp == OTP:
-            return render(request, 'files/new_password.html', getVal())
+            return render(request, 'files/new_password.html',getVal())
         else:
             messages.error(request, "OTP didn't match")
             return redirect('enter_OTP')
@@ -291,28 +313,31 @@ def enter_OTP(request):
 
 def new_password(request):
     if request.method == "POST":
-        password = request.POST['password']
-        confirm_password = request.POST['confirm-password']
-        if password == confirm_password:
-            if len(password) < 8:
-                messages.error(
-                    request, "Password should be minimum of 8 charachters")
-                return redirect('new_password')
+        pwd = request.POST['password']
+        conf_pwd = request.POST['confirm-password']
+        if new_pwd == conf_pwd:
+            if len(new_pwd)<8:
+                messages.info(request,"Password should be minimum of 8 characters")
             else:
-                pass
+                u=User.objects.get(username=email)
+                u.set_password(new_pwd)
+                u.save()
+                global loggedin
+                loggedin=False
+                return render(request,'files/login.html',getVal())
         else:
-            messages.info(
-                request, "Password and Confirm password should match")
+            messages.info(request,"new password and conform password should match")
             return redirect('new_password')
     else:
         return render(request, 'files/new_password', getVal())
 
 
 OTP = ""
-
+email=''
 
 def forgotpassword(request):
     if request.method == 'POST':
+        global email
         email = request.POST['email']
         global OTP
         OTP = generate_OTP()
