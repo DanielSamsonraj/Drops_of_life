@@ -45,63 +45,13 @@
             padding: 30px;
         }
     </style>
-<<<<<<< HEAD
-</head>
-
-<body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-
-    <nav class="navbar navbar-expand-lg navbar-dark my-nav-bar">
-        <div class="container">
-            <a class="navbar-brand" href="/home">Drops of Life</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto mr-3">
-                    <li class="nav-item my-item">
-                        {%if login%}
-                        <a class="nav-link" href="/login">{{login}}</a>{%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if signup%}
-                        <a class="nav-link" href="/signup">{{signup}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <a class="nav-link" href="/search">Search</a>
-                    </li>
-                    <li class="nav-item my-item">
-                        {%if viewProfile%}
-                        <a class="nav-link" href="/profile">{{viewProfile}}</a> {%endif%}
-                    </li>
-                    <li class="nav-item my-item">
-                        <!-- {%if logout%} -->
-                        <a class="nav-link" href="/logout">{{logout}}</a>
-                        <!-- {%endif%} -->
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </nav>
-=======
->>>>>>> upstream/master
 
     <div class="container">
         <div class="container1 design-form">
             <div class="note">
                 <p>Edit Profile</p>
             </div>
-<<<<<<< HEAD
-            <form role="form" method="POST" class="designForm">
-=======
             <form role="form" action="" method="POST" class="designForm">
->>>>>>> upstream/master
                 {% csrf_token %}
 
                 <div class="form-group md-form">
