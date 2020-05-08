@@ -29,30 +29,27 @@ def home(request):
     val = getVal()
     return render(request, 'files/home.html', val)
 
+@login_required(login_url='/login/')
 def editprofile(request):
     val=getVal()
+    #print("request user",request.user)
     user=DonarDetails.objects.filter(user=request.user)
+    #print('user',user)
+    #print('user[0]',user[0])
+    query_set=DonarDetails.objects.filter(name=user[0]).values()[0]
+    #print('query set',query_set)
+    pk=list(query_set.values())[0]
+    #print('pk',pk)
     if request.method == 'POST':
-
-        Name = request.POST['name']
-        contactNo = request.POST['CNo']
-        area = request.POST['area']
-        city = request.POST['city']
-        state = request.POST['state']
-        bloodGroup = request.POST['bg']
-        country = request.POST['country']
-        
-        extended_user = DonarDetails(
-                    name=Name.lower(),
-                    blood_group=bloodGroup.upper(),
-                    contact_no=contactNo,
-                    area=area.lower(),
-                    city=city.lower(),
-                    state=state.lower(),
-                    country=country.lower(),
-                    user=user
-                )
-        extended_user.save()
+        data = DonarDetails.objects.get(pk=pk)
+        data.name = request.POST['name'].lower()
+        data.contact_no = request.POST['CNo']
+        data.area = request.POST['area'].lower()
+        data.city = request.POST['city'].lower()
+        data.state = request.POST['state'].lower()
+        data.bloodGroup = request.POST['bg'].upper()
+        data.country = request.POST['country'].lower()
+        data.save()
         return redirect('profile')
 
     else:

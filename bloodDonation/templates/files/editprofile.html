@@ -93,7 +93,7 @@
                     </li>
                     <li class="nav-item my-item">
                         <!-- {%if logout%} -->
-                        <a class="nav-link" href="/profile">{{logout}}</a>
+                        <a class="nav-link" href="/logout">{{logout}}</a>
                         <!-- {%endif%} -->
                     </li>
                 </ul>
@@ -107,7 +107,7 @@
             <div class="note">
                 <p>Edit Profile</p>
             </div>
-            <form role="form" action="/signup" method="POST" class="designForm">
+            <form role="form" method="POST" class="designForm">
                 {% csrf_token %}
             
                 <div class="form-group md-form">
