@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'bloodDonation'
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -79,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'MyDatabase',
         'USER': 'postgres',
-        'PASSWORD': 'BhaVya',
+        'PASSWORD': 'cse1',
         'HOST': 'localhost'
     }
 }
@@ -122,3 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'danielsam458@gmail.com'
+EMAIL_HOST_PASSWORD = 'jiszilasjrizshud'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'DropsOfLife Team <noreply@DropsOfLife.com>'

@@ -5,6 +5,9 @@ from .models import DonarDetails
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+from django.core.mail import send_mail
+import random
 
 loggedin = False
 
@@ -29,6 +32,7 @@ def home(request):
     val = getVal()
     return render(request, 'files/home.html', val)
 
+<<<<<<< HEAD
 @login_required(login_url='/login/')
 def editprofile(request):
     val=getVal()
@@ -57,6 +61,8 @@ def editprofile(request):
         return render(request, 'files/editprofile.html', val)
     
 
+=======
+>>>>>>> upstream/master
 
 def user_login(request):
     global loggedin
@@ -88,7 +94,7 @@ def signup(request):
     val = getVal()
     if request.method == 'POST':
         Name = request.POST['name']
-        email = request.POST['email']
+        email = request.POST['email'] or None
         password = request.POST['pswd']
         password1 = request.POST['CPswd']
         contactNo = request.POST['CNo']
@@ -100,7 +106,7 @@ def signup(request):
         if len(password) < 8:
             messages.info(
                 request, "Password should be minimum of 8 charachters")
-            return redirect('sigup')
+            return redirect('signup')
         if password == email:
             messages.info(request, "Password should not be same as email")
             return redirect('signup')
@@ -126,6 +132,16 @@ def signup(request):
                 )
                 extended_user.save()
             auth.login(request, user)
+            # email sending
+
+            subject = "Thank you for registering for donating blood"
+            from_email = settings.EMAIL_HOST_USER
+            to_email = [email]
+            signup_message = "Hey " + Name + "\n" + "Welcome to Drops of life," + "\n" + \
+                "Thank you for registering yourself as a donor hope you help as many people as you can though our platform."
+            send_mail(subject=subject, from_email=from_email,
+                      recipient_list=to_email, message=signup_message, fail_silently=False)
+
             global loggedin
             loggedin = True
             return redirect('home')
@@ -141,10 +157,34 @@ def signup(request):
 @login_required(login_url='/login/')
 def profile(request):
     val = getVal()
-    data = DonarDetails.objects.filter(user=request.user)
-    val['data'] = data
-    print(data)
+    user = DonarDetails.objects.filter(user=request.user)
+    val['data'] = user
     return render(request, 'files/profile.html', val)
+
+
+@login_required(login_url='/login/')
+def editprofile(request):
+    val = getVal()
+    user = DonarDetails.objects.filter(user=request.user)
+    query_set = DonarDetails.objects.filter(name=user[0].name).values()
+    pk = list(query_set[0].values())[0]
+
+    if request.method == 'POST':
+        data = DonarDetails.objects.get(pk=pk)
+        data.name = request.POST['name']
+        data.contact_no = request.POST['CNo']
+        data.area = request.POST['area']
+        data.city = request.POST['city']
+        data.state = request.POST['state']
+        data.blood_group = request.POST['bg']
+        data.country = request.POST['country']
+
+        data.save()
+        return render(request, 'files/home.html', val)
+
+    else:
+        val['data'] = query_set
+        return render(request, 'files/editprofile.html', val)
 
 
 def convert(person):
@@ -174,14 +214,9 @@ def search(request):
         if len(worldwide_donors) > 0:
             val['check1'] = True
         countrywide_donors = DonarDetails.objects.filter(
-            country=country,
-            blood_group=bloodGroup
-        ).values()
+            country=country, blood_group=bloodGroup).values()
         statewide_donors = DonarDetails.objects.filter(
-            country=country,
-            state=state,
-            blood_group=bloodGroup
-        ).values()
+            country=country, state=state, blood_group=bloodGroup).values()
         citywide_donors = DonarDetails.objects.filter(
             country=country,
             state=state,
@@ -267,3 +302,58 @@ def changepassword(request):
     return render(request, 'files/changepassword.html', val)
 
 
+def generate_OTP():
+    otp = [str(random.randrange(10)) for i in range(4)]
+    return "".join(otp)
+
+
+def enter_OTP(request):
+    global OTP
+    if request.method == 'POST':
+        entered_otp = request.POST['otp']
+        if entered_otp == OTP:
+            return render(request, 'files/new_password.html', getVal())
+        else:
+            messages.error(request, "OTP didn't match")
+            return redirect('enter_OTP')
+    else:
+        return render(request, 'files/enter_OTP.html', getVal())
+
+
+def new_password(request):
+    if request.method == "POST":
+        password = request.POST['password']
+        confirm_password = request.POST['confirm-password']
+        if password == confirm_password:
+            if len(password) < 8:
+                messages.error(
+                    request, "Password should be minimum of 8 charachters")
+                return redirect('new_password')
+            else:
+                pass
+        else:
+            messages.info(
+                request, "Password and Confirm password should match")
+            return redirect('new_password')
+    else:
+        return render(request, 'files/new_password', getVal())
+
+
+OTP = ""
+
+
+def forgotpassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        global OTP
+        OTP = generate_OTP()
+        subject = "Drops Of Life Resetting Password"
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [email]
+        signup_message = "Hey user," + '\n' + OTP + " \n This is your OTP for your request" + \
+            '\n' + "If its not working please repeat this process again."
+        send_mail(subject=subject, from_email=from_email,
+                  recipient_list=to_email, message=signup_message, fail_silently=False)
+        return redirect('enter_OTP')
+    else:
+        return render(request, 'files/forgotpassword.html', getVal())
