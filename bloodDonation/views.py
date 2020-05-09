@@ -127,6 +127,18 @@ def profile(request):
     val = getVal()
     user = DonarDetails.objects.filter(user=request.user)
     val['data'] = user
+    data = val['data'].values()[0]
+    for fields in data:
+        if fields != "id" and fields != "blood_group" and fields != "contact_no" and fields != "user_id":
+            if fields == "name":
+                l = data[fields].split(' ')
+                for i in range(len(l)):
+                    l[i] = l[i].capitalize()
+                data['name'] = " ".join(l)
+            else:
+                data[fields] = data[fields].capitalize()
+    for fields in data:
+        val[fields] = data[fields]
     return render(request, 'files/profile.html', val)
 
 
