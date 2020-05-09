@@ -88,7 +88,6 @@ def signup(request):
             except:
                 user = User.objects.create_user(
                     username=email, password=password)
-                print(user)
                 extended_user = DonarDetails(
                     name=Name.lower(),
                     blood_group=bloodGroup.upper(),
@@ -265,32 +264,7 @@ def search(request):
         return render(request, 'files/search.html', val)
 
 
-@login_required(login_url='/login/')
-def changepassword(request):
-    if request.method=="POST":
-        cur_pwd=request.POST['currentpassword']
-        new_pwd=request.POST['newpassword']
-        conf_pwd=request.POST['conformpassword']
-        #print(request.user)
-        u=User.objects.get(username=request.user)
-        if(u.check_password(cur_pwd)):
-            if new_pwd == conf_pwd:
-                if len(new_pwd)<8:
-                    messages.info(request,"Password should be minimum of 8 characters")
-                else:
-                    u.set_password(new_pwd)
-                    u.save()
-                    global loggedin
-                    loggedin=False
-                    return render(request,'files/login.html',getVal())
-            else:
-                messages.info(request,"new password and conform password should match")
-                return redirect('changepassword')
-        else:
-            messages.info(request,"Please Enter Valid Password")
-            return redirect('changepassword')     
-    else:
-        return render(request, 'files/changepassword.html', getVal())
+global_dict = {}
 
 
 def generate_OTP():
@@ -298,49 +272,13 @@ def generate_OTP():
     return "".join(otp)
 
 
-def enter_OTP(request):
-    global OTP
-    if request.method == 'POST':
-        entered_otp = request.POST['otp']
-        if entered_otp == OTP:
-            return render(request, 'files/new_password.html',getVal())
-        else:
-            messages.error(request, "OTP didn't match")
-            return redirect('enter_OTP')
-    else:
-        return render(request, 'files/enter_OTP.html', getVal())
-
-
-def new_password(request):
-    if request.method == "POST":
-        pwd = request.POST['password']
-        conf_pwd = request.POST['confirm-password']
-        if new_pwd == conf_pwd:
-            if len(new_pwd)<8:
-                messages.info(request,"Password should be minimum of 8 characters")
-            else:
-                u=User.objects.get(username=email)
-                u.set_password(new_pwd)
-                u.save()
-                global loggedin
-                loggedin=False
-                return render(request,'files/login.html',getVal())
-        else:
-            messages.info(request,"new password and conform password should match")
-            return redirect('new_password')
-    else:
-        return render(request, 'files/new_password', getVal())
-
-
-OTP = ""
-email=''
-
 def forgotpassword(request):
     if request.method == 'POST':
-        global email
+        print("I am here twice ")
         email = request.POST['email']
-        global OTP
         OTP = generate_OTP()
+        global_dict['email'] = email
+        global_dict['otp'] = OTP
         subject = "Drops Of Life Resetting Password"
         from_email = settings.EMAIL_HOST_USER
         to_email = [email]
@@ -351,3 +289,74 @@ def forgotpassword(request):
         return redirect('enter_OTP')
     else:
         return render(request, 'files/forgotpassword.html', getVal())
+
+
+@login_required(login_url='/login/')
+def changepassword(request):
+    if request.method == "POST":
+        cur_pwd = request.POST['currentpassword']
+        new_pwd = request.POST['newpassword']
+        conf_pwd = request.POST['conformpassword']
+        # print(request.user)
+        u = User.objects.get(username=request.user)
+        if(u.check_password(cur_pwd)):
+            if new_pwd == conf_pwd:
+                if len(new_pwd) < 8:
+                    messages.info(
+                        request, "Password should be minimum of 8 characters")
+                else:
+                    u.set_password(new_pwd)
+                    u.save()
+                    global loggedin
+                    loggedin = False
+                    return render(request, 'files/login.html', getVal())
+            else:
+                messages.info(
+                    request, "new password and conform password should match")
+                return redirect('changepassword')
+        else:
+            messages.info(request, "Please Enter Valid Password")
+            return redirect('changepassword')
+    else:
+        return render(request, 'files/changepassword.html', getVal())
+
+
+def enter_OTP(request):
+    if request.method == 'POST':
+        entered_otp = request.POST['otp']
+        print(enter_OTP, global_dict['otp'])
+        if entered_otp == global_dict.get('otp'):
+            return redirect('new_password')
+        else:
+            messages.error(request, "OTP didn't match")
+            return render(request, 'files/forgotpassword.html', getVal())
+    else:
+        return render(request, 'files/enter_OTP.html', getVal())
+
+
+def new_password(request):
+    print(global_dict)
+    if request.method == "POST":
+        new_pwd = request.POST['password']
+        conf_pwd = request.POST['confirm-password']
+        if new_pwd == conf_pwd:
+            if len(new_pwd) < 8:
+                messages.info(
+                    request, "Password should be minimum of 8 characters")
+                return redirect('new_password')
+            else:
+                u = User.objects.get(username=global_dict['email'])
+                if u:
+                    u.set_password(new_pwd)
+                    u.save()
+                    return redirect('login')
+                else:
+                    messages.info(
+                        request, "Invalid details!, Please try again")
+                    return redirect('new_password')
+        else:
+            messages.info(
+                request, "new password and conform password should match")
+            return redirect('new_password')
+    else:
+        return render(request, 'files/new_password.html', getVal())
