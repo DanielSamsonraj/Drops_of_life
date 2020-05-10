@@ -66,6 +66,14 @@
 </style>
 <div class="jumbotron">
     <div class="container my-jumbotron">
+        {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %} {{ message }} {% endfor %}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
         <div class="row align-items-center" style="padding-top: 10px;">
             <div class="col-sm align-self-center">
                 <div class="row">
