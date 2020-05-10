@@ -1,112 +1,105 @@
 {% extends "files/header.html" %} {% block title %}Drops of Life {% endblock %} {%load static %} {% block content %} {%load static %}
-    <style>
-        .container1 {
-            margin: auto;
-        }
-        
-        .myForm {
-            /* padding: 40px; */
-            margin-top: 20px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .my-nav-bar {
-            background: rgb(160, 5, 5);
-        }
-        
-        body {
-            background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
-        }
-        
-        .design-form {
-            background-color: white;
-            margin-top: 40px;
-            max-width: 500px;
-            /* border: 1px solid white; */
-            background: -webkit-linear-gradient(left, #e6e5c9, rgb(243, 243, 222), #dbf1c8);
-            border-radius: 25px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        
-        .note {
-            text-align: center;
-            height: 80px;
-            background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
-            color: #fff;
-            line-height: 80px;
-            font-size: x-large;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
-        }
-        
-        .designForm {
-            padding: 30px;
-        }
-    </style>
+<style>
+    .container1 {
+        margin: auto;
+    }
+    
+    .myForm {
+        /* padding: 40px; */
+        margin-top: 20px;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .my-nav-bar {
+        background: rgb(160, 5, 5);
+    }
+    
+    body {
+        background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
+    }
+    
+    .design-form {
+        background-color: white;
+        margin-top: 40px;
+        max-width: 500px;
+        /* border: 1px solid white; */
+        background: -webkit-linear-gradient(left, #e6e5c9, rgb(243, 243, 222), #dbf1c8);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+    .note {
+        text-align: center;
+        height: 80px;
+        background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
+        color: #fff;
+        line-height: 80px;
+        font-size: x-large;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+    }
+    
+    .designForm {
+        padding: 30px;
+    }
+</style>
+<div class="container">
+    <div class="container1 design-form">
+        <div class="note">
+            <p>Edit Profile</p>
+        </div>
+        <form role="form" action="" method="POST" class="designForm">
+            {% csrf_token %}
 
-    <div class="container">
-        <div class="container1 design-form">
-            <div class="note">
-                <p>Edit Profile</p>
+            <div class="form-group md-form">
+                <strong>Name : </strong>
+                <input type="text" name="name" placeholder="Name" class="form-control" value="{{ name }}" style="border-radius: 15px;" required>
             </div>
-            <form role="form" action="" method="POST" class="designForm">
-                {% csrf_token %}
 
-                <div class="form-group md-form">
-                    <strong>Name : </strong> {% for d in data%}
-                    <input type="text" name="name" placeholder="Name" class="form-control" value="{{d.name}}" style="border-radius: 15px;" required> {% endfor %}
-                </div>
+            <strong>Blood Group : </strong>
+            <div class="form-group md-form">
+                <input type="text" name="bg" placeholder="Blood Group" class="form-control" value="{{ blood_group }}" style="border-radius: 15px;" required>
+            </div>
 
-                <strong>Blood Group : </strong>
-                <div class="form-group md-form">
-                    {% for d in data%}
-                    <input type="text" name="bg" placeholder="Blood Group" class="form-control" value="{{d.blood_group}}" style="border-radius: 15px;" required> {% endfor %}
+            <strong>Contact : </strong>
+            <div class="form-group md-form">
+                <input type="text" name="CNo" placeholder="Contact No" class="form-control" value="{{ contact_no }}" style="border-radius: 15px;" required>
+            </div>
+            <strong>Address : </strong>
+            <div class="form-row">
+                <div class="form-group col-sm md-6">
+                    <input type="text" name="area" placeholder="Area" class="form-control" value="{{ area }}" style="border-radius:15px;" required>
                 </div>
+                <div class="form-group col-sm md-6">
+                    <input type="text" name="city" placeholder="City" class="form-control" value="{{ city }}" style="border-radius:
+                        15px;" required>
+                </div>
+            </div>
 
-                <strong>Contact : </strong>
-                <div class="form-group md-form">
-                    {% for d in data%}
-                    <input type="text" name="CNo" placeholder="Contact No" class="form-control" value="{{d.contact_no}}" style="border-radius: 15px;" required> {% endfor %}
+            <div class="form-row">
+                <div class="form-group col-sm md-6">
+                    <input type="text" name="state" placeholder="State" class="form-control" value="{{ state }}" style="border-radius:
+                        15px;" required>
                 </div>
-                <strong>Address : </strong>
-                <div class="form-row">
-                    <div class="form-group col-sm md-6">
-                        {% for d in data%}
-                        <input type="text" name="area" placeholder="Area" class="form-control" value="{{d.area}}" style="border-radius:15px;" required> {% endfor %}
-                    </div>
-                    <div class="form-group col-sm md-6">
-                        {% for d in data%}
-                        <input type="text" name="city" placeholder="City" class="form-control" value="{{d.city}}" style="border-radius:
-                                15px;" required> {% endfor %}
-                    </div>
+                <div class="form-group col-sm md-6">
+                    <input type="text" name="country" placeholder="Country" class="form-control" value="{{ country }}" style="border-radius:
+                        15px;" required>
                 </div>
+            </div>
 
-                <div class="form-row">
-                    <div class="form-group col-sm md-6">
-                        {% for d in data%}
-                        <input type="text" name="state" placeholder="State" class="form-control" value="{{d.state}}" style="border-radius:
-                                15px;" required> {% endfor %}
-                    </div>
-                    <div class="form-group col-sm md-6">
-                        {% for d in data%}
-                        <input type="text" name="country" placeholder="Country" class="form-control" value="{{d.country}}" style="border-radius:
-                                15px;" required> {% endfor %}
-                    </div>
-                </div>
-
-                <div class="form-group md-form">
-                    <button class="btn btn-lg btn-primary btn-block" style="background: -webkit-linear-gradient(left,
-                            #4c89fa,#9f76e0);" type="submit">Save</button>
-                </div>
-            </form>
-        </div>
+            <div class="form-group md-form">
+                <button class="btn btn-lg btn-primary btn-block" style="background: -webkit-linear-gradient(left,
+                    #4c89fa,#9f76e0);" type="submit">Save</button>
+            </div>
+        </form>
     </div>
-    <footer class="page-footer font-small black">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
-        </div>
-    </footer>
+</div>
+<footer class="page-footer font-small black">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://BloodDonations.com/"> BloodDonations.com</a>
+    </div>
+</footer>
 
 {% endblock content %}
