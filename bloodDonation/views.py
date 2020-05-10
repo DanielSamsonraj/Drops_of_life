@@ -28,6 +28,9 @@ def getVal():
     return navBar
 
 
+global_dict = {}
+
+
 def home(request):
     val = getVal()
     return render(request, 'files/home.html', val)
@@ -40,6 +43,7 @@ def user_login(request):
         username = request.POST['email']
         password = request.POST['password']
         user = auth.authenticate(username=username, password=password)
+        global_dict['email'] = username
         if user is not None:
             auth.login(request, user)
             loggedin = True
@@ -148,7 +152,7 @@ def editprofile(request):
     user = DonarDetails.objects.filter(user=request.user)
     query_set = DonarDetails.objects.filter(name=user[0].name).values()
     pk = list(query_set[0].values())[0]
-
+    details = list(query_set[0].values())
     if request.method == 'POST':
         data = DonarDetails.objects.get(pk=pk)
         data.name = request.POST['name']
@@ -163,7 +167,16 @@ def editprofile(request):
         return render(request, 'files/home.html', val)
 
     else:
-        val['data'] = query_set
+        val = {
+            'area': details[4].capitalize(),
+            'city': details[5].capitalize(),
+            'state': details[6].capitalize(),
+            'country': details[7].capitalize(),
+            'contact_no': details[3],
+            'blood_group': details[2],
+            'name': " ".join([names.capitalize() for names in details[1].split(' ')])
+        }
+
         return render(request, 'files/editprofile.html', val)
 
 
@@ -276,9 +289,6 @@ def search(request):
         return render(request, 'files/search.html', val)
 
 
-global_dict = {}
-
-
 def generate_OTP():
     otp = [str(random.randrange(10)) for i in range(4)]
     return "".join(otp)
@@ -347,7 +357,6 @@ def enter_OTP(request):
 
 
 def new_password(request):
-    print(global_dict)
     if request.method == "POST":
         new_pwd = request.POST['password']
         conf_pwd = request.POST['confirm-password']
@@ -372,3 +381,15 @@ def new_password(request):
             return redirect('new_password')
     else:
         return render(request, 'files/new_password.html', getVal())
+
+
+@login_required(login_url='/login/')
+def deleteaccount(request):
+    auth.logout(request)
+    try:
+        user = User.objects.get(username=global_dict['email'])
+        user.delete()
+        messages.success(request, "Account successfully deleted ")
+    except Exception as e:
+        messages.error(request, e)
+    return redirect('home')
