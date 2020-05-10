@@ -1,104 +1,86 @@
 {% extends "files/header.html" %} {% block title %}Drops of Life {% endblock %} {%load static %} {% block content %} {%load static %}
-    <style>
-        .my-nav-bar {
-            background-color: rgb(160, 5, 5);
-        }
-        
-        .my-container {
-            max-width: 500px;
-            max-height: 500px;
-            margin-top: 30px;
-            margin-left: auto;
-            margin-right: auto;
-            background: -webkit-linear-gradient(left, #eee2ca, #f4f5d2);
-            border-radius: 25px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        }
-        
-        body {
-            background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
-        }
-        
-        .note {
-            text-align: center;
-            height: 80px;
-            background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
-            color: #fff;
-            line-height: 80px;
-            font-size: x-large;
-            border-top-left-radius: 25px;
-            border-top-right-radius: 25px;
-        }
-    </style>
-
-    <div class="container">
-        <div class="my-container">
-            <div class="note">
-                <strong>PERSONAL INFO </strong>
+<style>
+    .my-nav-bar {
+        background-color: rgb(160, 5, 5);
+    }
+    
+    .my-container {
+        padding: 0px 0px;
+        margin: 30px auto;
+        background: -webkit-linear-gradient(left, #eee2ca, #f4f5d2);
+        border-radius: 25px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        overflow: hidden;
+    }
+    
+    body {
+        background: -webkit-linear-gradient(left, #c5d3ee, #e7d3e7, rgb(247, 220, 220));
+    }
+    
+    .note {
+        text-align: center;
+        height: 80px;
+        background: -webkit-linear-gradient(left, rgb(160, 5, 5), #2d70ee);
+        color: #fff;
+        line-height: 80px;
+        font-size: x-large;
+        border-top-left-radius: 25px;
+        border-top-right-radius: 25px;
+    }
+</style>
+<div class="container">
+    <div class="container my-container">
+        <div class="note">
+            <p>Profile</p>
+        </div>
+        <div class="row" style="padding: 20px;">
+            <div class="col-sm" style="text-align: left;">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Name </strong>: {{name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p> <strong>Blood Group</strong> : {{blood_group}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Contact No</strong> : {{contact_no}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Address</strong> : {{area}},{{city}},{{state}},{{country}}
+                        </p>
+                    </div>
+                </div>
             </div>
-            <center>
-                <br> {%for d in data%}
-                <p><strong>Name: </strong>{{d.name}}</p>
-                <p><strong>Blood Group: </strong>{{d.blood_group}}</p>
-                {%endfor%}
-                <br>
-            </center>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="my-container">
-            <div class="note">
-                <strong>CONTACT INFO</strong>
+            <div class="col-sm">
+                <div class="container" style="text-align: center; overflow:
+                    hidden;">
+                    <a href="/editprofile"><button class="btn
+                            btn-outline-dark"
+                            style="max-width: 250px;margin: auto;size:
+                            30px;">Edit
+                            Profile</button></a>
+                    <br> <br>
+                    <a href="/changepassword"><button class="btn
+                            btn-outline-dark"
+                            style="max-width:
+                            250px;margin: auto;">Change
+                            Password</button></a>
+                    <br><br>
+                    <a href="/deleteaccount">
+                        <button class="btn btn-outline-dark" style="max-width:
+                            250px;margin: auto;" onclick="alert('Are you sure you want to delete your account')">Delete your
+                            account</button></a>
+                </div>
             </div>
-            <center>
-                <br> {% for d in data %}
-                <p><strong>Contact no: </strong>{{d.contact_no}}</p>
-                {% endfor %}
-                <br>
-            </center>
         </div>
     </div>
+</div>
 
-    <div class="container">
-        <div class="my-container">
-            <div class="note">
-                <strong>ADDRESS</strong>
-            </div>
-            <center>
-                <br> {%for d in data%}
-                <p>{{d.area}},</p>
-                <p>{{d.city}},</p>
-                <p>{{d.state}},</p>
-                <p>{{d.country}}</p>
-                {% endfor %}
-                <br>
-            </center>
-        </div>
-    </div>
 
-    <br><br>
-    <div class="container">
-        <center>
-            <a href="/editprofile"><button class="btn btn-lg btn-primary
-                        btn-block"
-                        style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
-                        max-width: 250px;margin: auto;">Edit Profile</button></a>
-        </center>
-    </div>
-    <div class="container mt-3">
-        <center>
-            <a href="/changepassword"><button class="btn btn-lg btn-primary
-                        btn-block"
-                        style="background:-webkit-linear-gradient(left,#4c89fa,#9f76e0);
-                        max-width: 250px;margin: auto;">Change Password</button></a>
-        </center>
-    </div>
-
-    <!-- footter -->
-    <footer class="page-footer font-small black">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-            <a href="https://BloodDonations.com/"> BloodDonations.com</a>
-        </div>
-    </footer>
 {% endblock content %}
