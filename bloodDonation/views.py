@@ -47,6 +47,7 @@ def user_login(request):
         if user is not None:
             auth.login(request, user)
             loggedin = True
+            messages.info(request, "Loggedin successfully")
             return redirect('home')
         else:
             messages.info(request, 'Invalid credentials')
@@ -60,7 +61,8 @@ def logout(request):
     auth.logout(request)
     global loggedin
     loggedin = False
-    return render(request, 'files/home.html', getVal())
+    messages.info(request, "Logged out successfully")
+    return redirect('home')
 
 
 def signup(request):
@@ -115,6 +117,7 @@ def signup(request):
                       recipient_list=to_email, message=signup_message, fail_silently=False)
 
             global loggedin
+            messages.info(request, "Signed up successfully.")
             loggedin = True
             return redirect('home')
         else:
