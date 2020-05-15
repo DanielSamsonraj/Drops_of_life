@@ -76,6 +76,7 @@
                         </h1>
                     </div>
                 </div>
+                {% if user.is_authenticated%} {% else %}
                 <div class="row">
                     <div class="col-sm align-self-center" style="text-align:
                         center;">
@@ -88,6 +89,7 @@
                         <a href="/signup"><button class="bt btn-dark">Register</button></a>
                     </div>
                 </div>
+                {% endif %}
             </div>
             <div class="col-sm align-self-center">
                 <div class="container" style="margin: 20px 0px;">
